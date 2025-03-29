@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id        Int        @id @default(autoincrement())
+  clerkid   String     @unique
+  firstName String
+  lastName  String
+  email     String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  campings  Camping[]
+  bookings  Booking[]
+  favorites Favorite[]
+}
+
+model Camping {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String     @db.VarChar(1000)
+  lat         Float
+  lng         Float
+  price       Int
+  public_id   String
+  secure_url  String
+  category    String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Profile     Profile    @relation(fields: [profileId], references: [clerkid])
+  profileId   String
+  bookings    Booking[]
+  favorites   Favorite[]
+}
+
+model Booking {
+  id            Int      @id @default(autoincrement())
+  totalNights   Int
+  checkIn       DateTime
+  checkOut      DateTime
+  total         Int
+  paymentStatus Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  profile   Profile @relation(fields: [profileId], references: [clerkid])
+  profileId String
+  camping   Camping @relation(fields: [campingId], references: [id])
+  campingId Int
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profile   Profile @relation(fields: [profileId], references: [clerkid])
+  profileId String
+  camping   Camping @relation(fields: [campingId], references: [id])
+  campingId Int
+}

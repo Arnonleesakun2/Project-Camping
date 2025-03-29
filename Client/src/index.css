@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+@layer components {
+  .maincontainer {
+    @apply w-[90%] mx-auto;
+  }
+}
+
+* {
+  font-family: "Anuphan", sans-serif;
+}
+.leaflet-container {
+  z-index: 1 ;
+}
