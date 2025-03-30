@@ -18,7 +18,7 @@ export const privatelinks = [
     label: "My Camping",
   },
   {
-    href: "/admin/camping",
+    href: "/user/camping",
     label: "Create Camping",
   },
 ];
