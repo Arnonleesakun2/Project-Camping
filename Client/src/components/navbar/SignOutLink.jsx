@@ -1,10 +1,9 @@
 import { SignOutButton } from "@clerk/clerk-react";
-import { useToast } from "../toast/ToastContext";
+import { createAlert } from "../../utils/createAlert";
 
 const SignOutLink = () => {
-  const { showToast } = useToast();
   const handleLogout = () => {
-    showToast("คุณได้ออกจากระบบแล้ว!", "success"); // เรียก Toast ได้จากทุกหน้า
+    createAlert("success", "Logout Success");
   };
   return (
     <SignOutButton redirectUrl="/">

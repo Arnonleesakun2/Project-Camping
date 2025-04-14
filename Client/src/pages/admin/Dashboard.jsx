@@ -1,10 +1,10 @@
-import React from "react";
-import DashBoardContainer from "../../components/dashboard/DashBoardContainer";
+import StatContainer from "../../components/admin/StatContainer";
 
 const Dashboard = () => {
   return (
     <main>
-      <DashBoardContainer />
+      <h2 className="text-3xl font-bold mb-2">Dashboard</h2>
+      <StatContainer/>
     </main>
   );
 };
