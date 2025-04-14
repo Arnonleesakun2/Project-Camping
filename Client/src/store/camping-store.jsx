@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import {
   addOrRemoveFavorite,
+  filterCamping,
   listCamping,
   listCampingUser,
   readCamping,
@@ -9,6 +10,7 @@ import {
 const campingStore = (set, get) => ({
   //ดึงข้อมูลcampingมาแสดงทั้งหมด
   campings: [],
+  readcamping: [],
   actionListCamping: async (id) => {
     try {
       const res = await listCamping(id);
@@ -20,7 +22,6 @@ const campingStore = (set, get) => ({
       console.log(error);
     }
   },
-  readcamping: [],
   actionReadCamping: async (id) => {
     try {
       const res = await readCamping(id);
@@ -66,6 +67,14 @@ const campingStore = (set, get) => ({
     const campingUsers = get().campingUsers;
     const updatedCampingUsers = campingUsers.filter((camp) => camp.id !== id);
     set({ campingUsers: updatedCampingUsers });
+  },
+  actionFilter: async (category = "", search = "") => {
+    try {
+      const res = await filterCamping(category, search);
+      set({ campings: res.data.result });
+    } catch (error) {
+      console.log(error);
+    }
   },
 });
 const useCampingStore = create(campingStore);

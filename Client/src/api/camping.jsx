@@ -32,3 +32,9 @@ export const addOrRemoveFavorite = async (token, data) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const filterCamping = async (category, search) => {
+  return await axios.get(
+    `http://localhost:5000/api/filter-camping?category=${category}&search=${search}`
+  );
+};

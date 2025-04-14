@@ -29,7 +29,7 @@ const Navbar = () => {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"
       }`}
       style={{
-        backgroundColor: lastScrollY > 50 ? "rgba(0, 0, 0, 1)" : "transparent",
+        backgroundColor: lastScrollY > 50 ? "rgba(0, 0, 0, 0.4)" : "transparent",
       }}
     >
       <div className="flex justify-between py-4 maincontainer">

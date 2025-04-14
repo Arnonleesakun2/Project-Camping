@@ -9,7 +9,7 @@ const MapHome = () => {
       <MapContainer
         center={[13, 100]}
         zoom={5}
-        scrollWheelZoom={true}
+        scrollWheelZoom={false}
         className="h-[400px] rounded-lg"
       >
       <Layer/>

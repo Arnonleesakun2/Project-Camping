@@ -167,3 +167,34 @@ exports.createFavorite = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.filterCamping = async (req, res, next) => {
+  try {
+    const { category, search } = req.query;
+    const filter = [];
+    if (category) {
+      filter.push({ category: category });
+    }
+    if (search) {
+      filter.push({ title: { contains: search } });
+    }
+    const result = await prisma.camping.findMany({
+      where: {
+        OR: filter,
+      },
+      include: {
+        favorites: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    const campingWithLink = result.map((item) => {
+      return { ...item, isFavorite: item.favorites.length > 0 };
+    });
+    res.json({ result: campingWithLink });
+  } catch (error) {
+    next(error);
+  }
+};

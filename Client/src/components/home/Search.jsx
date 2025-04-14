@@ -1,6 +1,22 @@
-import React from "react";
+import { useSearchParams } from "react-router";
+import { useDebouncedCallback } from "use-debounce";
 
 const Search = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearch = useDebouncedCallback((value) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (value) {
+      params.set("search", value);
+    } else {
+      params.delete("search");
+    }
+    setSearchParams(params);
+  }, 500);
+
+  const hdlSearch = (e) => {
+    updateSearch(e.target.value);
+  };
   return (
     <div className="">
       <label className="input ">
@@ -20,7 +36,12 @@ const Search = () => {
             <path d="m21 21-4.3-4.3"></path>
           </g>
         </svg>
-        <input type="search" className="grow " placeholder="Search" />
+        <input
+          onChange={hdlSearch}
+          type="search"
+          className="grow "
+          placeholder="Search"
+        />
         <kbd className="kbd kbd-sm">C</kbd>
         <kbd className="kbd kbd-sm">P</kbd>
       </label>

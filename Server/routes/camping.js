@@ -8,6 +8,7 @@ const {
   createFavorite,
   listCampingUser,
   deleteCamping,
+  filterCamping,
 } = require("../controllers/camping");
 //middlewares
 const { authCheck, adminCheck } = require("../middleweres/auth");
@@ -24,4 +25,7 @@ router.post("/createcamping", authCheck, createCamping);
 router.delete("/deletecamping", authCheck, deleteCamping);
 //ENDPOINT 5000 /api/createcamping
 router.post("/favorite", authCheck, createFavorite);
+
+router.get("/filter-camping", filterCamping);
+
 module.exports = router;
